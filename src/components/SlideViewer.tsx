@@ -1,5 +1,5 @@
-import { useEffect, useState, useRef, Suspense } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useEffect, useState, useRef, Suspense, useCallback } from "react";
+import { useParams, useSearchParams, Link } from "react-router-dom";
 import { MDXProvider } from "@mdx-js/react";
 import "../styles/slides.css";
 
@@ -16,14 +16,17 @@ const slideModules = import.meta.glob<SlideModule>("../slides/*.mdx");
 
 export default function SlideViewer() {
   const { filename } = useParams<{ filename: string }>();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [SlideComponent, setSlideComponent] =
     useState<React.ComponentType | null>(null);
-  const [currentSlide, setCurrentSlide] = useState(0);
   const [totalSlides, setTotalSlides] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const slideRef = useRef<HTMLDivElement>(null);
+
+  // Get current slide from URL
+  const currentSlide = parseInt(searchParams.get("slide") || "1", 10) - 1;
 
   useEffect(() => {
     async function loadSlide() {
@@ -63,14 +66,23 @@ export default function SlideViewer() {
     }
   }, [SlideComponent, currentSlide]);
 
+  // Navigate to a specific slide
+  const goToSlide = useCallback(
+    (slideIndex: number) => {
+      const validIndex = Math.max(0, Math.min(slideIndex, totalSlides - 1));
+      setSearchParams({ slide: String(validIndex + 1) });
+    },
+    [setSearchParams, totalSlides]
+  );
+
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
       if (e.key === "ArrowRight" || e.key === " ") {
         e.preventDefault();
-        setCurrentSlide((prev) => Math.min(prev + 1, totalSlides - 1));
+        goToSlide(currentSlide + 1);
       } else if (e.key === "ArrowLeft") {
         e.preventDefault();
-        setCurrentSlide((prev) => Math.max(prev - 1, 0));
+        goToSlide(currentSlide - 1);
       } else if (e.key === "Escape") {
         e.preventDefault();
         document.exitFullscreen?.();
@@ -82,7 +94,7 @@ export default function SlideViewer() {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [totalSlides]);
+  }, [currentSlide, totalSlides, goToSlide]);
 
   if (loading) {
     return (
@@ -135,7 +147,7 @@ export default function SlideViewer() {
 
             <div className="flex items-center gap-4">
               <button
-                onClick={() => setCurrentSlide((prev) => Math.max(prev - 1, 0))}
+                onClick={() => goToSlide(currentSlide - 1)}
                 disabled={currentSlide === 0}
                 className="px-3 py-1 bg-blue-500 text-white rounded disabled:bg-gray-300"
               >
@@ -147,9 +159,7 @@ export default function SlideViewer() {
               </span>
 
               <button
-                onClick={() =>
-                  setCurrentSlide((prev) => Math.min(prev + 1, totalSlides - 1))
-                }
+                onClick={() => goToSlide(currentSlide + 1)}
                 disabled={currentSlide === totalSlides - 1}
                 className="px-3 py-1 bg-blue-500 text-white rounded disabled:bg-gray-300"
               >
