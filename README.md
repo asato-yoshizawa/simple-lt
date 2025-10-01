@@ -1,96 +1,150 @@
 # Marp Slides App
 
-複数人でLT用のスライドを作成・共有するWebアプリケーション
+複数人で LT 用のスライドを作成・共有する Web アプリケーション
 
 ## 特徴
 
-- 📝 Markdown形式でスライド作成
-- 👥 GitHubベースの共同編集（コンフリクト回避）
-- 🎨 Marpによる美しいスライド表示
+- 📝 MDX 形式でスライド作成
+- 🤖 AI アシスタント（Claude）による対話的なスライド作成
+- 👥 GitHub ベースの共同編集（コンフリクト回避）
+- 🎨 React コンポーネントによる柔軟なスライド表示
 - 🚀 シンプルなファイル追加手順
 
 ## セットアップ
 
 1. リポジトリをクローン
+
 ```bash
 git clone [repository-url]
 cd marp-slides-app
 ```
 
 2. 依存関係をインストール
+
 ```bash
 npm install
 ```
 
 3. 開発サーバーを起動
+
 ```bash
 npm run dev
 ```
 
 ## スライドの追加方法
 
-### 1. リポジトリを最新に更新
-```bash
-git pull origin main
-```
+Claude Code で `/make-slide` コマンドを実行すると、対話形式でスライドを作成できます：
 
-### 2. 新しいスライドを作成
-```bash
-# テンプレートをコピー
-cp public/slides/template.md public/slides/YYYY-MM-DD_yourname_title.md
+1. LT のテーマを決める（AI が質問して引き出します）
+2. 具体的に話す内容を決める（AI が提案も行います）
+3. スライドを自動生成
+4. 台本も自動生成
 
-# 例:
-cp public/slides/template.md public/slides/2024-01-20_tanaka_react-tips.md
-```
+詳細は [.claude/commands/make-slide.md](.claude/commands/make-slide.md) を参照してください。
 
-### 3. スライドを編集
-お好きなエディタでMarkdownファイルを編集してください。
+## MDX の書き方
 
-### 4. コミット & プッシュ
-```bash
-git add public/slides/2024-01-20_tanaka_react-tips.md
-git commit -m "Add: React tips slide by tanaka"
-git push origin main
-```
+````mdx
+export const metadata = {
+  title: "あなたのプレゼンテーションタイトル",
+  author: "あなたの名前",
+};
 
-## ファイル命名規則
-
-`YYYY-MM-DD_username_title.md`
-
-- **YYYY-MM-DD**: 発表日（例: 2024-01-20）
-- **username**: あなたの名前（例: tanaka）
-- **title**: スライドのタイトル（スペースは`-`で置換）
-
-## Markdownの書き方
-
-```markdown
----
-marp: true
-theme: default
-paginate: true
----
+<div className="slide">
 
 # スライドタイトル
 
-発表者名
-2024-01-20
+## サブタイトル
+
+</div>
 
 ---
 
+<div className="slide">
+
 ## 次のスライド
+
+- 箇条書き 1
+- 箇条書き 2
+- 箇条書き 3
+
+</div>
+
+---
+
+<div className="slide">
+
+## コード例
+
+```javascript
+const hello = () => {
+  console.log("Hello, World!");
+};
+```
+````
+
+</div>
+```
+
+**ポイント:**
+
+- 各スライドは `<div className="slide">` で囲む
+- スライドの区切りは `---`（水平線）
+- ファイルの先頭で `metadata` をエクスポート
+
+## スライドフォーマットガイド
+
+スライド作成時には以下の点に注意してください。詳細は [SLIDE_FORMAT_GUIDE.md](SLIDE_FORMAT_GUIDE.md) を参照してください。
+
+### 見出しの制限
+
+- **h1**: タイトルスライド（1枚目）のみで使用
+- **h2**: 各スライドのタイトル。**最大2行まで**表示（2行を超えると切り取られます）
+- **h3**: スライド内のセクション区切り
+
+### 推奨事項
+
+- h2タイトルは20-25文字×2行以内に収める
+- 箇条書きは1スライドあたり3-6項目
+- 1スライド1メッセージの原則
+- 情報を詰め込みすぎない
+
+### スライド構成パターン
+
+**タイトルスライド:**
+```mdx
+<div className="slide">
+
+# メインタイトル
+
+## サブタイトル
+
+</div>
+```
+
+**標準スライド:**
+```mdx
+<div className="slide">
+
+## スライドタイトル
 
 - 箇条書き1
 - 箇条書き2
 
----
+</div>
+```
 
-## コード例
+**セクション付きスライド:**
+```mdx
+<div className="slide">
 
-\`\`\`javascript
-const hello = () => {
-  console.log("Hello, World!");
-};
-\`\`\`
+## スライドタイトル
+
+### セクション1
+
+内容...
+
+</div>
 ```
 
 ## プレビュー機能
@@ -106,15 +160,17 @@ const hello = () => {
 - React + TypeScript
 - Vite
 - Tailwind CSS
-- Marp Core
+- MDX (@mdx-js/rollup, @mdx-js/react)
 - React Router
 
 ## トラブルシューティング
 
 ### スライドが表示されない
-- ファイル名が命名規則に従っているか確認
-- `public/slides/`ディレクトリに配置されているか確認
+
+- `src/slides/`ディレクトリに配置されているか確認
+- MDX 形式（`.mdx`拡張子）になっているか確認
 
 ### 画像が表示されない
-- 画像は`public/images/`に配置
-- Markdownでは`![alt](/images/filename.png)`で参照
+
+- 画像は`public/(スライド名)/`に配置
+- MDX では`![alt](/(スライド名)/filename.png)`で参照

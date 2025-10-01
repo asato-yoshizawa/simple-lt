@@ -1,0 +1,97 @@
+export const metadata = {
+  title: "TanStack QueryによるSSR開発で通信を最小化する",
+  author: "あさと",
+};
+
+<div className="slide">
+
+# TanStack Query による SSR 開発で通信を最小化する
+
+## BE リソース削減と FE 表示高速化の実現
+
+<img src="/tanstack.jpeg" alt="TanStack Query" style={{width: "300px", margin: "20px auto", display: "block"}} />
+
+</div>
+
+---
+
+<div className="slide">
+
+## 自己紹介
+
+- **名前**: [あなたの名前]
+- **好きなもの**:
+  - 趣味
+  - 休日の過ごし方
+
+</div>
+
+---
+
+<div className="slide">
+
+## 従来の SSR でのデータフェッチの課題
+
+### 何が問題だったのか？
+
+- サーバーでフェッチしたデータを、クライアントコンポーネントで再フェッチすると**実際に BE に通信が走ってしまう**
+- Next.js の prefetch は**コントロールが大変**
+- Next.js の prefetch は**クライアントコンポーネントで使えない**
+
+→ **無駄な通信が発生**し、BE リソースを圧迫
+
+</div>
+
+---
+
+<div className="slide">
+
+## TanStack Query のキャッシュ戦略
+
+### 通信を最小化する仕組み
+
+- **staleTime / cacheTime** で持続時間を明確にコントロール
+- **refetch** が RSC でも Client Component でも簡単に実行可能
+- **キャッシュの仕組み**で同じデータへの重複リクエストを防ぐ
+
+→ **必要最小限の通信**を実現
+
+</div>
+
+---
+
+<div className="slide">
+
+## SSR と組み合わせた実装方法
+
+### データの流れを最適化
+
+1. **サーバーで明示的に prefetch**
+   - データを事前取得してキャッシュに保存
+
+2. **RSC での Request Memoization**
+   - Next.js の機能で同一リクエスト内の重複フェッチをまとめる
+
+3. **Client Component でデータを使い回す**
+   - SSR 時に取得・prefetch したデータをそのまま利用
+   - **追加の通信は発生しない**
+
+</div>
+
+---
+
+<div className="slide">
+
+## 終わりに
+
+### TanStack Query で実現できること
+
+- **API との通信を最小限**に抑える
+- **BE リソースの削減**と**FE 表示の高速化**を同時に達成
+- SSR とクライアントサイドの**シームレスなデータ共有**
+
+**TanStack Query を使えば、パフォーマンスとユーザー体験を両立できる SSR 開発が可能になります。**
+
+ぜひあなたのプロジェクトでも試してみてください！
+
+</div>

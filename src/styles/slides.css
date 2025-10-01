@@ -3,48 +3,92 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 12rem 4rem 2rem 4rem;
   background: white;
   page-break-after: always;
   box-sizing: border-box;
+  position: relative;
 }
 
 .slide h1 {
   font-size: 3rem;
-  margin-bottom: 1rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
   text-align: center;
+  width: 100%;
 }
 
 .slide h2 {
   font-size: 2.5rem;
-  margin-bottom: 1rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
   text-align: center;
+  width: 100%;
+  position: absolute;
+  top: 4rem;
+  left: 0;
+  right: 0;
+  padding: 0 4rem;
+  line-height: 1.3;
+  height: 6.5rem;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+/* h1がある場合はh2を通常フローに戻す */
+.slide:has(h1) h2 {
+  position: static;
+  padding: 0;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  height: auto;
+  -webkit-line-clamp: unset;
+}
+
+/* h1がある場合はスライド全体を中央揃えに */
+.slide:has(h1) {
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 4rem;
 }
 
 .slide h3 {
   font-size: 2rem;
-  margin-bottom: 0.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  margin-top: 1rem;
+  text-align: left;
 }
 
 .slide ul {
   font-size: 1.5rem;
   line-height: 2;
   max-width: 800px;
+  text-align: left;
+  list-style-type: disc;
+  padding-left: 2rem;
+  margin-bottom: 1rem;
 }
 
 .slide ol {
   font-size: 1.5rem;
   line-height: 2;
   max-width: 800px;
+  text-align: left;
+  list-style-type: decimal;
+  padding-left: 2rem;
+  margin-bottom: 1rem;
 }
 
 .slide p {
   font-size: 1.5rem;
   line-height: 1.8;
   max-width: 800px;
-  text-align: center;
+  text-align: left;
 }
 
 .slide pre {
@@ -59,6 +103,10 @@
 
 .slide code {
   font-family: 'Courier New', Courier, monospace;
+}
+
+.slide li {
+  margin-bottom: 0.5rem;
 }
 
 .slide strong {

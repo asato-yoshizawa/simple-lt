@@ -1,45 +1,125 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+このファイルは、Claude Code (claude.ai/code) がこのリポジトリでスライドを作成する際のガイドラインです。
 
-## Commands
+## 概要
 
-### Development
-- `npm run dev` - Start the development server with Vite
-- `npm run build` - Type check with TypeScript and build for production
-- `npm run lint` - Run ESLint on all TypeScript/TSX files
-- `npm run preview` - Preview the production build locally
+このアプリケーションは、MDX形式でプレゼンテーションスライドを作成・共有するためのものです。
 
-### Testing
-No test commands are currently configured. Consider adding tests with a framework like Vitest or Jest.
+## スライドの作成方法
 
-## Architecture Overview
+### ファイルの配置
+- スライドは `/src/slides/` ディレクトリにMDXファイルとして保存します
+- ファイル名は `YYYY-MM-DD_username_title.mdx` の形式に従います
+  - 例: `2025-10-01_asato_tanstack-query-ssr.mdx`
 
-This is a React + TypeScript application for creating and sharing presentation slides using MDX format. The app allows multiple users to collaborate on LT (Lightning Talk) presentations through a GitHub-based workflow.
+### スライドの区切り
+- 各スライドは `---`（水平線）で区切ります
+- 各スライドは `<div className="slide">` で囲む必要があります
 
-### Key Components
+## スライドフォーマットガイドライン
 
-1. **Slide Storage**: Slides are stored as MDX files in `/src/slides/` directory
-2. **Routing**: Uses React Router with two main routes:
-   - `/` - Lists all available slides
-   - `/view/:filename` - Displays individual slide presentations
+スライド作成時は以下のルールに従ってください。詳細は [SLIDE_FORMAT_GUIDE.md](SLIDE_FORMAT_GUIDE.md) を参照してください。
 
-3. **Slide Viewer**: 
-   - Parses MDX files and splits them into individual slides based on `<hr />` elements (rendered from `---` in Markdown)
-   - Provides keyboard navigation (arrows, space, F for fullscreen)
-   - Shows slide counter and navigation controls
+### 見出しの使い方
 
-4. **Naming Convention**: Slides follow the pattern `YYYY-MM-DD_username_title.mdx`
+- **h1**: タイトルスライド（1枚目）のみで使用。スライド全体が中央揃えになります
+- **h2**: 各スライドのメインタイトル。**最大2行まで**。2行を超える場合は自動的に切り取られます
+- **h3**: スライド内のセクション見出し。左寄せ、行数制限なし
 
-### Technology Stack
-- **Build Tool**: Vite with React + MDX plugins
-- **Styling**: Tailwind CSS (using @tailwindcss/vite)
-- **Type Checking**: TypeScript with strict configuration
-- **Code Quality**: ESLint with React hooks and refresh plugins
-- **MDX Processing**: @mdx-js/rollup and @mdx-js/react for MDX support
+### 重要な制約事項
 
-### Important Notes
-- The app uses MDX files (not plain Markdown) in the `/src/slides/` directory
-- The README mentions `/public/slides/` for Markdown files, but the actual implementation uses `/src/slides/` with MDX
-- Slides are dynamically imported using Vite's `import.meta.glob`
-- Each slide presentation is split into pages using horizontal rules (`---` in MDX)
+1. **h2タイトルの長さ**: 1行あたり20-25文字 × 最大2行
+   - 長すぎるタイトルは自動的に切り取られます
+   - タイトルは簡潔に保ってください
+
+2. **箇条書き**: 1スライドあたり3-6項目を推奨
+   - `- `を使用してulリストを作成
+   - `1. `を使用してolリストを作成
+   - ネストする場合は適切にインデント
+
+3. **スライド構造**: 各スライドは `<div className="slide">` で囲む必要があります
+   - スライドは `---`（水平線）で区切る
+   - コンテンツは左寄せ、タイトルは中央揃え
+
+### レイアウト仕様
+
+- **スライドサイズ**: 960px × 720px
+- **パディング**: 上部 12rem、左右 4rem、下部 2rem
+- **タイトルエリア**: 上部 4rem に固定、高さ 6.5rem（最大2行分）
+- **コンテンツエリア**: タイトルエリアの後、十分な間隔を確保
+- **最大コンテンツ幅**: 800px
+
+### よく使うパターン
+
+**パターン1: タイトルスライド**
+```mdx
+<div className="slide">
+
+# メインタイトル
+
+## サブタイトル
+
+<img src="/image.png" alt="画像" style={{width: "300px", margin: "20px auto", display: "block"}} />
+
+</div>
+```
+
+**パターン2: 標準スライド**
+```mdx
+<div className="slide">
+
+## スライドタイトル（最大2行）
+
+- 箇条書き1
+- 箇条書き2
+- 箇条書き3
+
+</div>
+```
+
+**パターン3: セクション付きスライド**
+```mdx
+<div className="slide">
+
+## スライドタイトル
+
+### セクション1
+
+- ポイント1
+- ポイント2
+
+### セクション2
+
+- ポイント3
+- ポイント4
+
+</div>
+```
+
+### ベストプラクティス
+
+1. h2タイトルは2行以内に収める（1行あたり20-25文字）
+2. 箇条書きを活用して明確に表現
+3. 1スライド1メッセージ
+4. スライドに情報を詰め込みすぎない
+5. スライド全体で一貫性を保つ
+6. **太字**は控えめに使用
+
+### スライド作成チェックリスト
+
+- [ ] h1はタイトルスライドのみで使用
+- [ ] h2タイトルは2行以内に収まっている
+- [ ] 箇条書きは3-6項目程度
+- [ ] 各スライドに `className="slide"` を指定
+- [ ] スライドを `---` で区切っている
+- [ ] 画像に適切なサイズスタイルを指定
+- [ ] 太字を適切に使用（多用していない）
+
+## 重要な注意事項
+
+### スタイルファイルの編集について
+
+**明示的な指示がない限り、`src/styles/slides.css` は編集しないでください。**
+
+スライドのレイアウトやスタイルは既に適切に設定されています。スライド作成時は、上記のフォーマットガイドラインに従ってMDXファイルを作成するだけで十分です。
