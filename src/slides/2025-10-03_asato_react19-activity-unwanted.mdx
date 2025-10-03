@@ -1,0 +1,133 @@
+export const metadata = {
+  title: "React 19 Activity API：誰も望んでいなかった機能",
+  author: "あさと",
+};
+
+<div className="slide">
+
+# React 19 Activity API
+
+## 誰も望んでいなかった機能
+
+![React Logo](/2025-10-03_asato_react19-activity-unwanted/react.png)
+
+</div>
+
+---
+
+<div className="slide">
+
+## 自己紹介
+
+- **名前**: あさと
+- **趣味**: キャンプ 🏕️
+
+![キャンプ](/2025-10-03_asato_react19-activity-unwanted/img.jpg)
+
+</div>
+
+---
+
+<div className="slide">
+
+## Activity API とは？
+
+### React 19 の新機能
+
+- コンポーネントの状態と DOM を保持したまま非表示に
+- `display: none`で視覚的に隠す
+- 内部状態は維持される
+- パフォーマンス改善が目的（特にハイドレーション）
+
+</div>
+
+---
+
+<div className="slide">
+
+## 使用例
+
+```jsx
+<Activity mode={isShowingSidebar ? "visible" : "hidden"}>
+  <Sidebar />
+</Activity>
+```
+
+- タブやサイドバーの状態保持
+- フォーム入力値の維持
+- 事前レンダリング
+
+</div>
+
+---
+
+<div className="slide">
+
+## なぜ望まれていないのか？①
+
+### 既存の方法で十分だった
+
+- Conditional Rendering で対応可能
+- React.memo で最適化できる
+- 状態管理ライブラリで解決済み
+
+</div>
+
+---
+
+<div className="slide">
+
+## なぜ望まれていないのか？②
+
+### 制限が多すぎる
+
+- Suspense 対応のデータソースのみ動作
+- Effects で取得したデータは検知不可
+- 使用場面が限定的
+- API の複雑性に対してメリットが小さい
+
+</div>
+
+---
+
+<div className="slide">
+
+## 開発者が本当に求めていたもの
+
+- よりシンプルな Server Components 対応
+- `use`や`use client`の改善
+- パフォーマンス最適化の自動化
+- デバッグツールの改善
+- 型安全性の向上
+
+</div>
+
+---
+
+<div className="slide">
+
+## 結論
+
+### Activity API は解決策を探している問題
+
+- 実際の開発現場のニーズとのズレ
+- 既存の解決方法で十分な領域
+- 複雑性を増すだけの機能追加
+
+**React 19 には他にもっと注目すべき機能がある**
+
+</div>
+
+---
+
+<div className="slide">
+
+## 終わりに
+
+Activity API は技術的には興味深い機能ですが、実際の開発現場で求められていた機能とは言えません。
+
+React 19 の他の機能（Server Components、use hook 等）に注目して、より実践的な開発を進めましょう。
+
+**機能は増やすことより、本当に必要なものを見極めることが大切**
+
+</div>
