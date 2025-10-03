@@ -1,0 +1,85 @@
+export const metadata = {
+  title: "useEffectEventを使ってみよう",
+  author: "tom-chiba",
+};
+
+<div className="slide">
+
+# useEffectEventを使ってみよう
+
+## exhaustive-depsルールを守りながら開発する
+
+</div>
+
+---
+
+<div className="slide">
+
+## 自己紹介
+
+- **名前**: tom-chiba
+- **好きなもの**:
+  - 趣味
+  - 休日の過ごし方
+
+</div>
+
+---
+
+<div className="slide">
+
+## useEffectEventとは
+
+- React 19.2で追加された新機能
+- 呼び出されたその瞬間の最新のpropsとstateを「見る」ことをReactが保証してくれる
+
+</div>
+
+---
+
+<div className="slide">
+
+## useEffectEventで解決できる問題
+
+- exhaustive-depsルールを守りながら、依存配列に含めたくない値を使える
+- useEffectの再実行を防ぎつつ、最新の値を参照できる
+
+</div>
+
+---
+
+<div className="slide">
+
+## 具体的な使用例: Before
+
+![Before](/2025-10-03_tom-chiba_useEffectEvent/before.png)
+
+- themeを依存配列に含めると、theme変更のたびにuseEffectが再実行される
+- 依存配列から外すと、exhaustive-depsルールに違反
+
+</div>
+
+---
+
+<div className="slide">
+
+## 具体的な使用例: After
+
+![After](/2025-10-03_tom-chiba_useEffectEvent/after.png)
+
+- useEffectEventを使うことで、最新のthemeを参照しつつ、再実行を防ぐ
+- exhaustive-depsルールも満たす
+
+</div>
+
+---
+
+<div className="slide">
+
+## 終わりに
+
+- useEffectEventを使えば、exhaustive-depsルールを破らずにやりたいことができる
+- React 19.2以降で使える新機能なので、ぜひ試してみてください
+- useEffectの依存配列で悩んだら、useEffectEventを検討してみましょう
+
+</div>
