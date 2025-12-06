@@ -1,0 +1,166 @@
+export const metadata = {
+  title: "AIでコンポーネント開発",
+  author: "あさと",
+};
+
+<div className="slide">
+
+# AI でコンポーネント開発
+
+## うまく活用するコツ
+
+</div>
+
+---
+
+<div className="slide">
+
+## 自己紹介
+
+<div style={{display: "flex", alignItems: "center", gap: "40px"}}>
+<div>
+
+- **名前**: あさと
+- **趣味**: 旅行、キャンプ
+  - 島や山に行くのが好き
+  - 近いうちに一人で島にワーケーションしたい
+
+</div>
+<img src="/ai-component-development/img.jpg" alt="島の写真" style={{width: "300px"}} />
+</div>
+
+</div>
+
+---
+
+<div className="slide">
+
+## AI でコンポーネント開発は簡単
+
+- Figma のデザインからコンポーネントを生成できる
+- だいたいそれっぽいものができる
+- 細かい調整は必要だが、土台作りは任せられる
+
+</div>
+
+---
+
+<div className="slide">
+
+## 実例 ①: FAQ コンポーネント
+
+<img
+  src="/ai-component-development/easy.png"
+  alt="FAQコンポーネント"
+  style={{ width: "500px", margin: "0 auto", display: "block" }}
+/>
+
+</div>
+
+---
+
+<div className="slide">
+
+## 実例 ①: ここがすごかった
+
+- shadcn/ui の accordion を自動で使ってくれた
+- microCMS からデータ取得予定だったが、カテゴリー数など不明点を質問してくれた
+- 別作業しながらコンポーネント作成を進められる
+
+</div>
+
+---
+
+<div className="slide">
+
+## 実例 ②: 複雑なコンポーネント
+
+<img
+  src="/ai-component-development/difficult.png"
+  alt="ベータテスト参加条件コンポーネント"
+  style={{ width: "600px", margin: "0 auto", display: "block" }}
+/>
+
+</div>
+
+---
+
+<div className="slide">
+
+## 実例 ②: ここがすごかった
+
+- テーブル、チェックリスト、CTA ボタンなど複合的
+- 細かいマークアップは調整が必要だった
+- 「適当にやって」指示で素直な実装に
+- 結果、修正が簡単だった
+
+</div>
+
+---
+
+<div className="slide">
+
+## デザインの共有方法
+
+### Figma dev mode MCP vs スクリーンショット
+
+- MCP は便利だが、コンテキストをかなり消費する
+- 正直スクリーンショットでも十分
+- ここは好みで選んで OK
+
+</div>
+
+---
+
+<div className="slide">
+
+## AI にうまく伝えるコツ
+
+- 使いたい既存コンポーネントは先に伝える
+  - AI は既存コンポーネントの流用があまり得意ではない
+  - shadcn/ui は install してあれば使ってくれる
+- props 定義やコンポーネント構成のイメージを伝える
+  - container-presenter、RSC など
+  - 先に伝えておくと精度が上がる
+
+</div>
+
+---
+
+<div className="slide">
+
+## AI が苦手なこと・対処法
+
+- 細かいマークアップ・スタイリング
+  - 「適当にやって」と指示すると逆にうまくいく
+- absolute を使った複雑なレイアウト
+  - plan mode で考えさせて自分で実装した方が早い
+
+</div>
+
+---
+
+<div className="slide">
+
+## まとめ
+
+- AI を使えばコンポーネント開発は簡単にできる
+- コツを押さえてうまく活用しよう
+- AI は完璧ではないが、強力なパートナーになる
+- まずは試してみて、自分なりの使い方を見つけよう
+
+</div>
+
+---
+
+<div className="slide">
+
+## ちなみに
+
+このスライドも AI で自動生成しました
+
+<img src="/ai-component-development/qr.png" alt="リポジトリQRコード" style={{width: "200px", margin: "20px auto", display: "block"}} />
+
+https://github.com/asato-yoshizawa/simple-lt
+
+</div>
